@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter as Router,Link, Switch } from 'react-router-dom'
+import { Route, BrowserRouter as Router,Link } from 'react-router-dom'
 // npm i react-router
 import './root.css'
 import './index.html'
@@ -48,7 +48,7 @@ export default class root extends Component {
       
       </Router>
       <footer>
-        <div class="footer">
+        <div className="footer">
           <p>Footer</p>
         </div>
       </footer>

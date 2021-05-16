@@ -10,16 +10,7 @@ export default class product extends Component {
   // }
   render() {
     return <div className="component-product">
-      {
-        (() => {
-          console.log(window.location.pathname)
-          if (window.location.pathname != "/home") {
-            return <div> Hello! component product</div>
-          }else{
-            return <div> Hello! component Product GB</div>
-          };
-        })()
-      }
+     
     </div>;
   }
 }
