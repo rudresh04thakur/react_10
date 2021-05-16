@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route ,Router} from 'react-router-dom'
+import { Route, BrowserRouter as Router,Link, Switch } from 'react-router-dom'
 // npm i react-router
 import './root.css'
 import './index.html'
@@ -12,48 +12,48 @@ import Register from '../register'
 // import { connect } from "react-redux";
 // import { bindActionCreators } from "redux";
 // import * as rootActions from "../../store/root/actions";
-const menu = ['Home','Login','Register','Contact'];
+const menu = ['Home', 'Login', 'Register', 'Contact'];
 export default class root extends Component {
 
   constructor(props) {
-    
+
     super(props);
     this.state = {};
   }
   handleClick = () => { }
   render() {
-    return <div className="root">
+    return <div className="component-root">
+    <Router>
       <header>
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="#">WebSiteName</a>
+              <Link className="navbar-brand" to={'/'}>WebSiteName</Link>
             </div>
-
-            <Router>
-              
-               
-                <Route path="home" component={Home} />
-                <Route path="login" component={Login} />
-                <Route path="register" component={Register} />
-              
-            </Router>
             <ul className="nav navbar-nav">
-              <li><a href="#">{menu[0]}</a></li>
-              <li><a href="#">{menu[1]}</a></li>
-              <li><a href="#">{menu[2]}</a></li>
-              <li><a href="#">{menu[3]}</a></li>
+              <li><Link to={'home'}>{menu[0]}</Link></li>
+              <li><Link to={'home/product'}>{"Product"}</Link></li>
+              <li><Link to={'login'}>{menu[1]}</Link></li>
+              <li><Link to={'register'}>{menu[2]}</Link></li>
             </ul>
           </div>
         </nav>
       </header>
-      main data
+      
+        <Route path="/home" component={Home}><Home></Home>
+          <Route path="/product" component={Product}><Product></Product></Route>
+        </Route>
+        
+        <Route path="/login" component={Login} ><Login></Login></Route>
+        <Route path="/register" component={Register} ><Register></Register></Route>
+      
+      </Router>;
       <footer>
         <div class="footer">
           <p>Footer</p>
         </div>
       </footer>
-      </div>;
+    </div>
   }
 }
 // export default root;
