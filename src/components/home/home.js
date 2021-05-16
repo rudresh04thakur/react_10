@@ -4,12 +4,25 @@ import './home.scss'
 // import { bindActionCreators } from "redux";
 // import * as homeActions from "../../store/home/actions";
 export default class home extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {};
-    // }
+    constructor(props) {
+        super(props);
+       
+        this.state = {};
+    }
     render() {
-      return <div className="component-home">Hello! component home</div>;
+      return <div className="component-home">
+        {
+          (()=>{
+           
+            if(window.location.pathname!="/home/product"){
+              return <div> Hello! component home</div>
+            }else{
+              return <div> Hello! component Home GB</div>
+            };
+          })()
+        }
+        
+        </div>;
     }
   }
 // export default connect(
