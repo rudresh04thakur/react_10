@@ -9,10 +9,10 @@ export default class login extends Component {
     super(props);
     this.state = {
       initForm: {
-        email: { value: '', isValid: true, error: '' },
-        password: { value: '', isValid: true, error: '' },
-        validForm: false
-      }
+        email: { value: '', isValid: false, error: '' },
+        password: { value: '', isValid: false, error: '' },
+      },
+      validForm: false
     };
   }
 
@@ -38,9 +38,10 @@ export default class login extends Component {
             isValid: false,
             error: "This field required"
           },
-          'validForm': false
+          
         }
       })
+      this.setState({'validForm': false})
 
     } else if (event.target.type === 'email' && !(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+$/.test(event.target.value))) {
       this.setState({
@@ -50,9 +51,10 @@ export default class login extends Component {
             isValid: false,
             error: "No valid email id"
           },
-          'validForm': false
+        
         }
       })
+      this.setState({'validForm': false})
     } else if (event.target.type === 'password' &&
       !(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,10}$/.test(event.target.value))) {
       this.setState({
@@ -62,9 +64,9 @@ export default class login extends Component {
             isValid: false,
             error: "No a Valid Password. it must contain number and special char"
           },
-          'validForm': false
         }
       })
+      this.setState({'validForm': false})
     } else {
       this.setState({
         initForm: {
@@ -75,60 +77,54 @@ export default class login extends Component {
           }
         }
       })
+      
     }
-    // for (key in this.state.initForm) {
-    //   if (typeof(this.state.initForm[key]) === 'object') {
-    //     if (this.state.initForm[key]['isValid'] === true) {
-    //       this.setState({
-    //         initForm: {
-    //           ...this.state.initForm,
-    //           validForm: true
-    //         }
-    //       })
-    //     } 
-    //     if(this.state.initForm[key]['isValid'] === false) {
-    //       this.setState({
-    //         initForm: {
-    //           ...this.state.initForm,
-    //           validForm: false
-    //         }
-    //       })
-    //     }
-    //   }
+    //Has Bug for disable submit button 
+    for (key in this.state.initForm) {
+      if (typeof (this.state.initForm[key]) === 'object') {
+        if (this.state.initForm[key]['isValid'] === true) {
+          console.log("in if --- ", key, this.state.validForm)
+          this.setState({'validForm': true})
+        } 
+        if (this.state.initForm[key]['isValid'] === false) {
+          console.log("in else --- ", key, this.state.validForm)
+          this.setState({'validForm': false})
+        }
 
-    // }
-}
+      }
+    }
+  }
 
-render() {
-  return <form className="form col-md-4 col-md-offset-4">
-    <div className="input-group">
-      <label>Email</label>
-      <input name="email" onBlur={this.blurHandler.bind(this)} onChange={() => { }}
-        className="form-control" type="email"></input>
-      <div className="alert alert-danger" >{this.state.initForm.email.error}</div>
-    </div>
-    <div className="input-group">
-      <label>Password</label>
-      <input name="password" onBlur={this.blurHandler.bind(this)} onChange={() => { }}
-        className="form-control" type="password"></input>
-      <div className="alert alert-danger" >{this.state.initForm.password.error}</div>
-    </div>
-    <div className="input-group">
-      <button className="btn btn-danger" type="reset">Reset</button>&nbsp;&nbsp;&nbsp;
-        
+  render() {
+    return <form className="form col-md-4 col-md-offset-4">
+      <div className="input-group">
+        <label>Email</label>
+        <input name="email" onBlur={this.blurHandler.bind(this)} onChange={() => { }}
+          className="form-control" type="email"></input>
+        <div className="alert alert-danger" >{this.state.initForm.email.error}</div>
+      </div>
+      <div className="input-group">
+        <label>Password</label>
+        <input name="password" onBlur={this.blurHandler.bind(this)} onChange={() => { }}
+          className="form-control" type="password"></input>
+        <div className="alert alert-danger" >{this.state.initForm.password.error}</div>
+      </div>
+      <div className="input-group">
+        <button className="btn btn-danger" type="reset">Reset</button>&nbsp;&nbsp;&nbsp;
+
         {(() => {
-            if (this.state.initForm['validForm'] === true) {
-              return <button className="btn btn-success" type="submit" >Submit</button>
-            } else {
-              return <button className="btn btn-success" type="submit" disabled >Submit</button>
-            }
-          })()
+          if (this.state.validForm === true) {
+            return <button className="btn btn-success" type="submit" >Submit</button>
+          } else {
+            return <button className="btn btn-success" type="submit" disabled >Submit</button>
+          }
+        })()
         }
 
 
-    </div>
-  </form>
-}
+      </div>
+    </form>
+  }
 }
 // export default connect(
 //     ({login}) => ({...login}),
